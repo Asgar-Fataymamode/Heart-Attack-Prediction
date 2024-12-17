@@ -15,7 +15,8 @@ Our ultimate goal is twofold:
 ## Data Description
 
 **Data Source & Features:**  
-The dataset is sourced from a publicly available heart disease analysis and prediction dataset on Kaggle. It includes 303 patient records (after removing one duplicate), each with 14 attributes. 
+The dataset is sourced from a publicly available heart disease analysis and prediction dataset on Kaggle. It includes 302 patient records (after removing one duplicate), each with 14 attributes.
+
 Dataset Link: https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset
 
 Key features are:
@@ -91,7 +92,7 @@ When comparing distributions by class (0 vs. 1):
 PCA on numeric features fails to yield a clear linear separation between classes, reinforcing the notion that the relationship between these features and heart disease likelihood may be intricate and not easily captured in a low-dimensional linear subspace.
 
 **EDA Conclusion:**  
-No single factor dominates in predicting heart disease. Both continuous and categorical features provide subtle hints. The complexity suggests that machine learning models must leverage the entire feature set holistically.
+No single factor dominates in predicting heart disease. Both continuous and categorical features provide subtle hints. The complexity suggests that machine learning models must leverage the entire feature set.
 
 ## Models and Methods
 
@@ -99,7 +100,7 @@ No single factor dominates in predicting heart disease. Both continuous and cate
 1. **Data Preparation:**
    - Duplicate rows removed, no missing values found.
    - Categorical features one-hot encoded.
-   - Numeric features scaled to support models sensitive to scale (e.g., Logistic Regression).
+   - Numeric features scaled to support models sensitive to scale (e.g Logistic Regression).
 
 2. **Train-Test Split:**
    - 80/20 split stratified by target ensures balanced class distribution in both sets.
@@ -172,7 +173,7 @@ Tuning improves XGBoost’s performance, making it competitive with Random Fores
 - **Random Forest and XGBoost:**  
   Increased false positives and/or lower accuracy indicate these models struggle to achieve the nuanced balance that Logistic Regression provides.
 
-- **ROC Curve Comparison** 
+- **ROC Curve Comparison**
   The ROC curves demonstrate that Logistic Regression (AUC = 0.89) outperforms Random Forest (AUC = 0.86) and XGBoost (AUC = 0.81) in terms of separability between classes. The higher AUC for Logistic Regression indicates that it more consistently distinguishes between high-risk and low-risk patients across various probability thresholds.
 
 - **Precision-Recall Curve Comparison**
@@ -180,7 +181,7 @@ The Precision-Recall curves show that Logistic Regression again leads with an Av
 
 ### Feature Importance
 - The Random Forest’s top features highlight oldpeak, thal-based variables (thal_2 and thal_3), and thalachh (maximum heart rate) as highly influential in predicting heart attack likelihood. Cholesterol (chol), resting blood pressure (trtbps), and age also play significant roles. This suggests that a combination of exercise-induced measures (oldpeak, thalachh) and certain thalassemia test results is critical for the Random Forest model’s decision-making.
-- XGBoost places a dominant emphasis on a single feature: thal_2. This single categorical feature related to thalassemia test results outweighs other features like exercise-induced angina (exng_1) and specific chest pain categories (cp_3). This indicates that, within XGBoost’s learned structure, variations in this particular thallium-based feature strongly influence its predictions.
+- XGBoost places a dominant emphasis on a single feature: thal_2. This categorical feature related to thalassemia test results outweighs other features like exercise-induced angina (exng_1) and specific chest pain categories (cp_3). This indicates that, within XGBoost’s learned structure, variations in this particular thallium-based feature strongly influence its predictions.
 
 ### Overall Model Comparison
 | Model                 | Accuracy  | Precision | Recall   | F1-Score |
@@ -212,17 +213,17 @@ This project demonstrates that complexity does not always guarantee superiority.
 
 **Practical Implications:**
 - A medical practitioner could implement a Logistic Regression-based decision-support tool to identify high-risk patients. The model’s simplicity and transparency align well with clinical settings, where interpretability is crucial.
-- More advanced models might still have a role if future efforts include richer data sources (e.g., imaging, genetic markers, advanced biomarkers) or if data size and complexity increase significantly.
+- More advanced models might still have a role if future efforts include richer data sources (e.g imaging, genetic markers, advanced biomarkers) or if data size and complexity increase significantly.
 
 **Next Steps for Improvement:**
 1. **Feature Engineering:**  
-   Incorporate domain knowledge to derive new features (e.g., ratios like cholesterol-to-HDL ratio, or grouping chest pain types differently).
+   Incorporate domain knowledge to derive new features (e.g ratios like cholesterol-to-HDL ratio, or grouping chest pain types differently).
    
 2. **Inclusion of Additional Data:**  
    Integrate more patient history (smoking habits, family history, medications) or lifestyle factors to capture a fuller picture of risk.
    
 3. **Advanced Hyperparameter Tuning:**  
-   While some tuning was done for XGBoost, more extensive searches or Bayesian optimization methods could uncover better parameter sets.
+   While some tuning was done for XGBoost, Bayesian optimization methods could uncover better parameter sets.
    
 4. **Interpretability Tools:**  
    Techniques like SHAP or LIME could be employed to explain model predictions on an individual patient level, bolstering clinician trust and facilitating insight into the drivers of risk.
