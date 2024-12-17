@@ -6,12 +6,19 @@ Heart disease remains one of the foremost global health challenges, significantl
 
 In this project, we develop and evaluate predictive models to estimate the likelihood of a heart attack based on patient characteristics and clinical measurements. The dataset includes a variety of features such as age, sex, resting blood pressure, cholesterol levels, chest pain type, exercise-induced angina, and other indicators derived from ECG results and exercise tests. By experimenting with multiple classification algorithms—Logistic Regression as a baseline, Random Forest as a robust ensemble method, and XGBoost as a state-of-the-art gradient boosting technique—we aim to determine which approach provides the best balance of accuracy, precision, and recall.
 
-Our ultimate goal is twofold: (1) Gain insights into which features most strongly influence heart attack risk, and (2) Identify a model that can serve as a reliable tool for clinicians. While more complex models might promise higher predictive power, this analysis will show that simplicity can sometimes yield surprising advantages. The results highlight the importance of careful model selection, hyperparameter tuning, and interpretability, especially in medical contexts where decisions can have profound life-or-death implications.
+Our ultimate goal is twofold:
+
+1. Gain insights into which features most strongly influence heart attack risk.
+
+2. Identify a model that can serve as a reliable tool for clinicians. While more complex models might promise higher predictive power, this analysis will show that simplicity can sometimes yield surprising advantages. The results highlight the importance of careful model selection, hyperparameter tuning, and interpretability, especially in medical contexts where decisions can have profound life-or-death implications.
 
 ## Data Description
 
 **Data Source & Features:**  
-The dataset is sourced from a publicly available heart disease analysis and prediction dataset on Kaggle. It includes 303 patient records (after removing one duplicate), each with 14 attributes. Key features are:
+The dataset is sourced from a publicly available heart disease analysis and prediction dataset on Kaggle. It includes 303 patient records (after removing one duplicate), each with 14 attributes. 
+Dataset Link: https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset
+
+Key features are:
 
 - **Continuous Features:** 
   - **age:** Age of the patient in years.
@@ -165,8 +172,15 @@ Tuning improves XGBoost’s performance, making it competitive with Random Fores
 - **Random Forest and XGBoost:**  
   Increased false positives and/or lower accuracy indicate these models struggle to achieve the nuanced balance that Logistic Regression provides.
 
+- **ROC Curve Comparison** 
+  The ROC curves demonstrate that Logistic Regression (AUC = 0.89) outperforms Random Forest (AUC = 0.86) and XGBoost (AUC = 0.81) in terms of separability between classes. The higher AUC for Logistic Regression indicates that it more consistently distinguishes between high-risk and low-risk patients across various probability thresholds.
+
+- **Precision-Recall Curve Comparison**
+The Precision-Recall curves show that Logistic Regression again leads with an Average Precision (AP) of 0.91, followed by Random Forest (AP = 0.89) and XGBoost (AP = 0.84). Since precision-recall curves focus on the predictive performance for the positive class (heart attack risk), this confirms that Logistic Regression not only identifies most at-risk patients but also does so with fewer false alarms compared to the other models.
+
 ### Feature Importance
-- Random Forest and XGBoost feature importance plots (not detailed here for brevity) suggest that factors like chest pain type, thalachh (max heart rate), and exercise-related variables influence predictions. However, the linear model (Logistic Regression) indirectly confirms these through coefficients.
+- The Random Forest’s top features highlight oldpeak, thal-based variables (thal_2 and thal_3), and thalachh (maximum heart rate) as highly influential in predicting heart attack likelihood. Cholesterol (chol), resting blood pressure (trtbps), and age also play significant roles. This suggests that a combination of exercise-induced measures (oldpeak, thalachh) and certain thalassemia test results is critical for the Random Forest model’s decision-making.
+- XGBoost places a dominant emphasis on a single feature: thal_2. This single categorical feature related to thalassemia test results outweighs other features like exercise-induced angina (exng_1) and specific chest pain categories (cp_3). This indicates that, within XGBoost’s learned structure, variations in this particular thallium-based feature strongly influence its predictions.
 
 ### Overall Model Comparison
 | Model                 | Accuracy  | Precision | Recall   | F1-Score |
